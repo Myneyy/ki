@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myneyy KI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Menübereich -->
+        <div class="menu">
+            <h2>Myneyy KI</h2>
+            <ul>
+                <li>Home</li>
+                <li>Frag Myneyy</li>
+                <li>Datenschutz</li>
+                <li>Kontakt</li>
+            </ul>
+        </div>
+
+        <!-- Chatbereich -->
+        <div class="chat-container">
+            <div class="chat-box" id="chat-box">
+                <!-- Chatverlauf wird hier angezeigt -->
+            </div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Schreibe etwas...">
+                <button id="send-button">Senden</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-button");
+    
+        // Nachricht senden und in den Chatverlauf hinzufügen
+        sendButton.addEventListener("click", sendMessage);
+    
+        // Senden mit Enter-Taste
+        userInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Verhindert das Standardverhalten von Enter
+                sendMessage(); // Funktion zum Senden aufrufen
+            }
+        });
+    
+        // Nachricht senden
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message !== "") {
+                addMessageToChat(message, "user");
+                userInput.value = ""; // Eingabefeld leeren
+                simulateBotResponse(message); // Bot-Antwort simulieren
+            }
+        }
+    
+        // Nachrichten zum Chatverlauf hinzufügen
+        function addMessageToChat(message, sender) {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message", sender);
+            messageElement.innerText = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Automatisch nach unten scrollen
+        }
+    
+        // Bot antworten
+        function simulateBotResponse(userMessage) {
+            const responses = {
+                "hallo": "Hallo! Wie kann ich dir helfen?",
+                "wie geht's": "Mir geht es gut, danke der Nachfrage!",
+                "musik": "Ich kann dir tolle Songs empfehlen!",
+                "default": "Das habe ich leider nicht verstanden"
+            };
+    
+            const botResponse = responses[userMessage.toLowerCase()] || responses["default"];
+            setTimeout(() => addMessageToChat(botResponse, "bot"), 500);
+        }
+    </script>
+    
+</body>
+</html>

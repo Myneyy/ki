@@ -13,6 +13,7 @@ body {
 /* Hauptcontainer */
 .main-container {
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 100%;
 }
@@ -47,7 +48,6 @@ body {
     display: flex; 
     flex-direction: column; 
     justify-content: space-evenly;
-    
 }
 
 .menu ul li {
@@ -146,3 +146,48 @@ button {
 button:hover {
     background-color: #3970ad; 
 }
+
+/* ========================== */
+/* Responsive Anpassungen */
+/* ========================== */
+@media screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Menü und Chat untereinander */
+    }
+
+    .menu {
+        width: 100%; /* Menü nimmt volle Breite ein */
+        border-right: none;
+        border-bottom: 1px solid #333; 
+    }
+
+    .chat-container {
+        height: auto;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .menu h2 {
+        font-size: 1.2rem;
+    }
+
+    .menu ul li {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .message {
+        font-size: 0.8rem;
+    }
+
+    input[type="text"] {
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
+

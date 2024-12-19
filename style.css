@@ -1,13 +1,13 @@
 /* Grundlegende Stile für die Seite */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212; /* Dunkles Schwarz */
-    color: #e0e0e0; /* Helles Grau für Kontrast */
+    background-color: #121212;
+    color: #e0e0e0;
     margin: 0;
     padding: 0;
     display: flex;
-    height: 100vh; /* Volle Höhe des Bildschirms */
-    overflow: hidden; /* Verhindert Scrollen des Body */
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* Hauptcontainer */
@@ -18,28 +18,20 @@ body {
     height: 100%;
 }
 
-/* Menübereich */
-.menu {
-    background-color: #1e1e1e; 
-    color: #f5f5f5; 
-    width: 250px;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    flex-shrink: 0;
-    border-right: 1px solid #333; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+/* Checkbox für das Menü */
+#menu-toggle {
+    display: none;
 }
 
 .menu h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: #4A90E2; 
-    padding-top: 0px;
-    margin-bottom: 10px;
-    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 0px;
+    text-align:center;
 }
+
+
 
 .menu ul {
     list-style: none;
@@ -48,43 +40,101 @@ body {
     display: flex; 
     flex-direction: column; 
     justify-content: space-evenly;
+
 }
+
 
 .menu ul li {
     margin: 10px 0;
     font-size: 1rem;
-    padding: 10px;
     cursor: pointer;
-    color: #e0e0e0; 
-    border-radius: 4px;
-    transition: background-color 0.3s;
     text-align: center;
 }
 
-.menu ul li:hover {
-    background-color: #292929; 
+.menu ul li a {
+    text-decoration: none; /* Keine Unterstreichung */
+    color: #e0e0e0; /* Normale Textfarbe */
+    font-size: 1.5rem; /* Schriftgröße */
+    display: inline-block; /* Ermöglicht Padding bei Bedarf */
+    transition: color 0.3s ease; /* Sanfter Hover-Effekt */
+}
+
+
+.menu ul li a:hover {
+    background-color: #363535; 
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+}
+
+/* Button zum Öffnen/Schließen des Menüs */
+.menu-button {
+    background-color: #37393b;
+    color: #ffffff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    position: absolute;
+    top: 10px;
+    left: 80px;
+    z-index: 10; /* Über allem */
+}
+
+.menu-button:hover{
+
+    background-color: #2e2d2d;
+}
+/* Menübereich */
+.menu {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    width: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    flex-shrink: 0;
+    border-right: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    left: -250px; /* Menü ist versteckt */
+    height: 100%;
+    transition: left 0.3s ease;
+}
+
+/* Menü sichtbar, wenn Checkbox aktiviert */
+#menu-toggle:checked ~ .menu {
+    left: 0; /* Menü einfahren */
 }
 
 /* Chatbereich */
 .chat-container {
     flex-grow: 1;
-    background-color: #121212; 
+    background-color: #121212;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-left: 0;
     height: 97%;
+    transition: margin-left 0.3s ease;
+}
+
+/* Chatbereich verschieben, wenn Menü aktiv ist */
+#menu-toggle:checked ~ .chat-container {
+    margin-left: 250px;
 }
 
 /* Chatbox */
 .chat-box {
     overflow-y: auto;
     flex-grow: 1;
-    border: 1px solid #333; 
+    border: 1px solid #333;
     border-radius: 4px;
-    padding: 10px;
-    background-color: #1d1d1d; 
-    color: #d1d1d1; 
+    padding: 30px;
+    background-color: #1d1d1d;
+    color: #d1d1d1;
 }
 
 /* Nachrichten */
@@ -93,20 +143,24 @@ body {
     padding: 12px;
     border-radius: 4px;
     font-size: 0.9rem;
-    max-width: 75%;
+    height: 40px;
+    max-width: 100%;
     word-wrap: break-word;
+    
 }
 
 .message.user {
-    background-color: #4A90E2; 
-    color: #121212; 
-    text-align: right;
+    font-size: 1.3rem;
+    background-color: #3875b3;
+    color: #ffffff;
+    text-align: center;
     align-self: flex-end;
 }
 
 .message.bot {
-    background-color: #333; 
-    color: #f5f5f5; 
+    font-size: 1.3rem;
+    background-color: #333;
+    color: #f5f5f5;
     text-align: left;
     align-self: flex-start;
 }
@@ -123,18 +177,18 @@ input[type="text"] {
     padding: 12px;
     border: 1px solid #333;
     border-radius: 4px;
-    background-color: #1e1e1e; 
+    background-color: #1e1e1e;
     color: #f5f5f5;
     font-size: 1rem;
 }
 
 input[type="text"]::placeholder {
-    color: #777; 
+    color: #777;
 }
 
 button {
-    background-color: #4A90E2; 
-    color: #121212; 
+    background-color: #4A90E2;
+    color: #121212;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
@@ -144,21 +198,19 @@ button {
 }
 
 button:hover {
-    background-color: #3970ad; 
+    background-color: #3970ad;
 }
 
-/* ========================== */
 /* Responsive Anpassungen */
-/* ========================== */
 @media screen and (max-width: 768px) {
     .main-container {
-        flex-direction: column; /* Menü und Chat untereinander */
+        flex-direction: column;
     }
 
     .menu {
-        width: 100%; /* Menü nimmt volle Breite ein */
+        width: 100%;
         border-right: none;
-        border-bottom: 1px solid #333; 
+        border-bottom: 1px solid #333;
     }
 
     .chat-container {
@@ -190,4 +242,6 @@ button:hover {
         font-size: 0.9rem;
     }
 }
+
+
 
